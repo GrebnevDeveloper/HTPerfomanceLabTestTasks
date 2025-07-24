@@ -25,6 +25,8 @@ public class Task2 {
             System.err.println("Ошибка при чтении файлов: " + e.getMessage());
         } catch (NumberFormatException e) {
             System.err.println("Ошибка при парсинге чисел: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Неизвестная ошибка: " + e.getMessage());
         }
     }
 

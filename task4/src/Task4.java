@@ -26,15 +26,17 @@ public class Task4 {
             System.err.println("Ошибка при чтении файла: " + e.getMessage());
         } catch (NumberFormatException e) {
             System.err.println("Ошибка при парсинге чисел: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Неизвестная ошибка: " + e.getMessage());
         }
     }
 
     private static int minMovesToEqualElements(List<Integer> nums) {
-        Collections.sort(nums);
-        int median = nums.get(nums.size() / 2);
+        Collections.sort(nums); // сортируем список
+        int median = nums.get(nums.size() / 2); // ищем медианное значение
         int moves = 0;
         for (int num : nums) {
-            moves += Math.abs(num - median);
+            moves += Math.abs(num - median); // находим количество шагов от числа до медианы и суммируем их
         }
         return moves;
     }

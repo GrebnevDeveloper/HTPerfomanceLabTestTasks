@@ -63,6 +63,8 @@ public class Task3 {
 
         } catch (IOException e) {
             System.err.println("Ошибка при чтении файла: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Неизвестная ошибка: " + e.getMessage());
         }
     }
 
