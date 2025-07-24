@@ -7,8 +7,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Использовал библиотеку Gson 2.13.1, т.к. изначально проект структурно не создавал для Maven,то библиотека в папке lib.
- * Для запуска:
+ * Использовал библиотеку Gson 2.13.1, в проект добавлен pom.xml
+ * при текущей структуре запуск из корневого через командную:
+ * java -jar target/HTPerfomanceLabTestTasks-1.0-SNAPSHOT-jar-with-dependencies.jar \
+ *     "task3/src/values.json" \
+ *     "task3/src/tests.json" \
+ *     "task3/src/report.json"
+ *
+ * На всякий случай если с запуском будут проблемы, то добавил библиотеку в lib.
+ * Тогда для запуска:
  * ---если запускаем командную из корневой папки, то вводим для сборки
  * javac -cp "lib/gson-2.13.1.jar" task3/src/Task3.java -d target/classes
  * ---для запуска (json файлы тогда должны быть в task3/src/)
