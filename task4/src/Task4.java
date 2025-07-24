@@ -18,7 +18,7 @@ public class Task4 {
 
             List<Integer> nums = Arrays.stream(content.split("\\n"))
                     .map(Integer::parseInt)
-                    .collect(Collectors.toList());;
+                    .collect(Collectors.toList());
 
             System.out.println(minMovesToEqualElements(nums));
 
