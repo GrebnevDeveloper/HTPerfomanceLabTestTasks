@@ -6,25 +6,25 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Использовал библиотеку Gson 2.13.1, в проект добавлен pom.xml
- * при текущей структуре запуск из корневого через командную:
- * java -jar target/HTPerfomanceLabTestTasks-1.0-SNAPSHOT-jar-with-dependencies.jar \
- *     "task3/src/values.json" \
- *     "task3/src/tests.json" \
- *     "task3/src/report.json"
- *---------------------------------------
- * На всякий случай если с запуском будут проблемы, то добавил библиотеку в lib.
- * Тогда для запуска:
- * ---если запускаем командную из корневой папки, то вводим для сборки
- * javac -cp "lib/gson-2.13.1.jar" task3/src/Task3.java -d target/classes
- * ---для запуска (json файлы тогда должны быть в task3/src/)
- * java -cp "target/classes:lib/gson-2.13.1.jar" Task3 task3/src/values.json task3/src/tests.json task3/src/report.json
- *------------------------------------------
- * ---если запускаем командную из папки task3/src/ то для сборки
- * javac -cp "../../lib/gson-2.13.1.jar" Task3.java
- * ---для запуска (json файлы тогда должны быть в task3/src/)
- * java -cp ".:../../lib/gson-2.13.1.jar" Task3 values.json tests.json report.json
+/*
+  Использовал библиотеку Gson 2.13.1, в проект добавлен pom.xml
+  при текущей структуре запуск из корневого через командную:
+  java -jar target/HTPerfomanceLabTestTasks-1.0-SNAPSHOT-jar-with-dependencies.jar \
+      "task3/src/values.json" \
+      "task3/src/tests.json" \
+      "task3/src/report.json"
+ ---------------------------------------
+  На всякий случай если с запуском будут проблемы, то добавил библиотеку в lib.
+  Тогда для запуска:
+  ---если запускаем командную из корневой папки, то вводим для сборки
+  javac -cp "lib/gson-2.13.1.jar" task3/src/Task3.java -d target/classes
+  ---для запуска (json файлы тогда должны быть в task3/src/)
+  java -cp "target/classes:lib/gson-2.13.1.jar" Task3 task3/src/values.json task3/src/tests.json task3/src/report.json
+ ------------------------------------------
+  ---если запускаем командную из папки task3/src/ то для сборки
+  javac -cp "../../lib/gson-2.13.1.jar" Task3.java
+  ---для запуска (json файлы тогда должны быть в task3/src/)
+  java -cp ".:../../lib/gson-2.13.1.jar" Task3 values.json tests.json report.json
  */
 public class Task3 {
     public static void main(String[] args) {
