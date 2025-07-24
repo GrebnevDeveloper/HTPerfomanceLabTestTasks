@@ -32,7 +32,7 @@ public class Task2 {
 
     private static Circle readCircleFromFile(String filePath) throws IOException {
         String content = Files.readString(Paths.get(filePath));
-        String[] lines = content.trim().split("\\n");
+        String[] lines = content.split("\\n");
         String[] centerCoordinates = lines[0].split(" ");
 
         BigDecimal centerX = new BigDecimal(centerCoordinates[0]);
