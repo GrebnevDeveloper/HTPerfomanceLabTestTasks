@@ -1,8 +1,15 @@
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class Task2 {
+    // Работать будем с BigDecimal, т.к. входные числа слишком большие
+    private static final MathContext MATH_CONTEXT = MathContext.DECIMAL128;
+    // Погрешность для сравнения вещественных чисел
+    private static final BigDecimal ERROR_RATE = new BigDecimal("1E-10");
+
     public static void main(String[] args) {
         if (args.length < 2) {
             System.err.println("Передано неверное количество аргументов");
@@ -25,10 +32,10 @@ public class Task2 {
         String content = Files.readString(Paths.get(filePath));
         String[] lines = content.trim().split("\\n");
         String[] centerCoordinates = lines[0].split(" ");
-        double centerX = Double.parseDouble(centerCoordinates[0]);
-        double centerY = Double.parseDouble(centerCoordinates[1]);
 
-        double radius = Double.parseDouble(lines[1]);
+        BigDecimal centerX = new BigDecimal(centerCoordinates[0]);
+        BigDecimal centerY = new BigDecimal(centerCoordinates[1]);
+        BigDecimal radius = new BigDecimal(lines[1]);
 
         return new Circle(centerX, centerY, radius);
     }
@@ -40,36 +47,49 @@ public class Task2 {
         for (String line : lines) {
 
             String[] coordinates = line.split(" ");
-            double x = Double.parseDouble(coordinates[0]);
-            double y = Double.parseDouble(coordinates[1]);
+            BigDecimal x = new BigDecimal(coordinates[0]);
+            BigDecimal y = new BigDecimal(coordinates[1]);
 
             int position = calculatePointPosition(circle, x, y);
             System.out.println(position);
         }
     }
 
-    private static int calculatePointPosition(Circle circle, double x, double y) {
-        // Находим расстояние от центра окружности до точки по теореме Пифагора
-        double distance = Math.sqrt(Math.pow(x - circle.centerX, 2) + Math.pow(y - circle.centerY, 2));
+    // Находим расстояние от центра окружности до точки по теореме Пифагора
+    private static int calculatePointPosition(Circle circle, BigDecimal x, BigDecimal y) {
+        // Вычисляем разности координат
+        BigDecimal deltaX = x.subtract(circle.centerX, MATH_CONTEXT);
+        BigDecimal deltaY = y.subtract(circle.centerY, MATH_CONTEXT);
 
-        // Так как работаем в вещественными числами, то нужно учитывать погрешность
-        double errorRate = 1e-10;
+        // Вычисляем квадраты разностей
+        BigDecimal deltaXSquare = deltaX.pow(2, MATH_CONTEXT);
+        BigDecimal deltaYSquare = deltaY.pow(2, MATH_CONTEXT);
 
-        if (Math.abs(distance - circle.radius) < errorRate) {
+        // Вычисляем сумму квадратов, она же дистанция в квадрате
+        BigDecimal distanceSquared = deltaXSquare.add(deltaYSquare, MATH_CONTEXT);
+
+        // Вычисляем квадрат радиуса
+        BigDecimal radiusSquared = circle.radius.pow(2, MATH_CONTEXT);
+
+        // Сравниваем distanceSquared с radiusSquared с учетом погрешности
+        BigDecimal difference = distanceSquared.subtract(radiusSquared).abs();
+
+        // Для определения, что на окружности необходимо учесть погрешность вещественных чисел
+        if (difference.compareTo(ERROR_RATE) < 0) {
             return 0; // на окружности
-        } else if (distance < circle.radius) {
-            return 1; // в окружности
+        } else if (distanceSquared.compareTo(radiusSquared) < 0) { // тут можно просто сравнить
+            return 1; // внутри окружности
         } else {
             return 2; // снаружи окружности
         }
     }
 
     private static class Circle {
-        double centerX;
-        double centerY;
-        double radius;
+        BigDecimal centerX;
+        BigDecimal centerY;
+        BigDecimal radius;
 
-        Circle(double centerX, double centerY, double radius) {
+        Circle(BigDecimal centerX, BigDecimal centerY, BigDecimal radius) {
             this.centerX = centerX;
             this.centerY = centerY;
             this.radius = radius;

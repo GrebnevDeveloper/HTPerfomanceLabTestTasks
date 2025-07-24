@@ -20,6 +20,8 @@ public class Task1 {
         }
     }
 
+    // Использую строку вместо массива, т.к. вычислений не каких делать не надо
+    // и можно работать просто как с последовательностью символов
     private static void findPath(int sizeArray, int lengthInterval) {
         StringBuilder path = new StringBuilder();
         int currentStart = 1;
@@ -27,6 +29,11 @@ public class Task1 {
         do {
             path.append(currentStart);
 
+            // Вычисляем следующий стартовый элемент:
+            // -2 т.к. первая -1 компенсирует индексацию с 1 а не 0,
+            // и еще -1 потому что мы уже включили currentStart элемент
+            // % sizeArray - для обеспечения кругового обхода
+            // +1 - возвращаемся к индексации с 1
             currentStart = ((currentStart + lengthInterval - 2) % sizeArray) + 1;
 
         } while (currentStart != 1);
